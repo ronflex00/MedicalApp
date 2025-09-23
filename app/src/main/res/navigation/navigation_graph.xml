@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/loginFragment">
+
+    <!-- Login Fragment -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.medicalapp.ui.login.loginFragment"
+        android:label="Login">
+        <action
+            android:id="@+id/action_loginFragment_to_pinSetupFragment"
+            app:destination="@id/pinSetupFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_pinLoginFragment"
+            app:destination="@id/pinLoginFragment" />
+    </fragment>
+
+    <!-- Pin Setup Fragment -->
+    <fragment
+        android:id="@+id/pinSetupFragment"
+        android:name="com.example.medicalapp.ui.pin.PinSetupFragment"
+        android:label="Setup PIN">
+        <action
+            android:id="@+id/action_pinSetupFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+
+    <!-- Pin Login Fragment -->
+    <fragment
+        android:id="@+id/pinLoginFragment"
+        android:name="com.example.medicalapp.ui.pin.PinLoginFragment"
+        android:label="Login PIN">
+        <action
+            android:id="@+id/action_pinLoginFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+
+    <!-- Dashboard Fragment -->
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.medicalapp.ui.dashboard.DashboardFragment"
+        android:label="Dashboard" />
+</navigation>
