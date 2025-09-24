@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.medicalapp.R
 import com.example.medicalapp.data.UserPreferences
+import java.io.File
 
-class loginFragment : Fragment() {
+class LoginFragment : Fragment() {
 
     private lateinit var userPrefs: UserPreferences
+    private val fileName = "carnet_medical.json"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,9 +31,13 @@ class loginFragment : Fragment() {
         loginBtn.setOnClickListener {
             val username = usernameInput.text.toString()
             if (username.isNotEmpty()) {
-                if (userPrefs.hasPin()) {
+                val carnetFile = File(requireContext().filesDir, fileName)
+
+                if (userPrefs.hasPin() && carnetFile.exists()) {
+                    // Utilisateur existant → demander PIN
                     findNavController().navigate(R.id.action_loginFragment_to_pinLoginFragment)
                 } else {
+                    // Nouvel utilisateur → config PIN
                     findNavController().navigate(R.id.action_loginFragment_to_pinSetupFragment)
                 }
             }

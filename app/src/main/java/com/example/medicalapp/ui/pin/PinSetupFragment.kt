@@ -31,10 +31,11 @@ class PinSetupFragment : Fragment() {
             val pin = pinInput.text.toString()
             if (pin.length == 4) {
                 userPrefs.savePin(pin)
-                Toast.makeText(requireContext(), "PIN sauvegardé !", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_pinSetupFragment_to_dashboardFragment)
+                Toast.makeText(requireContext(), "PIN sauvegardé ✅", Toast.LENGTH_SHORT).show()
+                // ✅ Aller d'abord vers le formulaire médical (nouvel utilisateur)
+                findNavController().navigate(R.id.action_pinSetupFragment_to_medicalFormFragment)
             } else {
-                Toast.makeText(requireContext(), "Le PIN doit contenir 4 chiffres", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Le PIN doit contenir 4 chiffres ❌", Toast.LENGTH_SHORT).show()
             }
         }
 

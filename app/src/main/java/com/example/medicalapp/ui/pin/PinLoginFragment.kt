@@ -33,6 +33,7 @@ class PinLoginFragment : Fragment() {
 
             if (pin == savedPin) {
                 Toast.makeText(requireContext(), "Accès accordé ✅", Toast.LENGTH_SHORT).show()
+                // ✅ Aller au Dashboard si le PIN est correct
                 findNavController().navigate(R.id.action_pinLoginFragment_to_dashboardFragment)
             } else {
                 Toast.makeText(requireContext(), "PIN incorrect ❌", Toast.LENGTH_SHORT).show()
