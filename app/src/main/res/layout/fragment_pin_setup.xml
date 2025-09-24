@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:gravity="center"
@@ -7,15 +6,24 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/pinInput"
+        android:id="@+id/inputPin"
         android:hint="Choisissez un PIN (4 chiffres)"
         android:inputType="numberPassword"
         android:maxLength="4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <EditText
+        android:id="@+id/inputConfirmPin"
+        android:hint="Confirmez le PIN"
+        android:inputType="numberPassword"
+        android:maxLength="4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"/>
+
     <Button
-        android:id="@+id/savePinBtn"
+        android:id="@+id/btnSavePin"
         android:text="Enregistrer PIN"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"

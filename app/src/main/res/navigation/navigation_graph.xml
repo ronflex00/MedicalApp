@@ -1,45 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_graph"
-    app:startDestination="@id/loginFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/accueilFragment">
 
-    <!-- Login Fragment -->
+    <!-- Accueil -->
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.medicalapp.ui.login.loginFragment"
-        android:label="Login">
+        android:id="@+id/accueilFragment"
+        android:name="com.example.medicalapp.ui.accueil.AccueilFragment"
+        tools:layout="@layout/fragment_accueil">
         <action
-            android:id="@+id/action_loginFragment_to_pinSetupFragment"
-            app:destination="@id/pinSetupFragment" />
+            android:id="@+id/action_accueilFragment_to_medicalFormFragment"
+            app:destination="@id/medicalFormFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_pinLoginFragment"
+            android:id="@+id/action_accueilFragment_to_pinLoginFragment"
             app:destination="@id/pinLoginFragment" />
     </fragment>
 
-    <!-- Pin Setup Fragment -->
+    <!-- Formulaire inscription -->
+    <fragment
+        android:id="@+id/medicalFormFragment"
+        android:name="com.example.medicalapp.ui.medical.MedicalFormFragment"
+        tools:layout="@layout/fragment_medical_form">
+        <action
+            android:id="@+id/action_medicalFormFragment_to_pinSetupFragment"
+            app:destination="@id/pinSetupFragment" />
+    </fragment>
+
+    <!-- Setup PIN -->
     <fragment
         android:id="@+id/pinSetupFragment"
         android:name="com.example.medicalapp.ui.pin.PinSetupFragment"
-        android:label="Setup PIN">
+        tools:layout="@layout/fragment_pin_setup">
+        <argument
+            android:name="userEmail"
+            app:argType="string" />
         <action
             android:id="@+id/action_pinSetupFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
     </fragment>
 
-    <!-- Pin Login Fragment -->
+    <!-- Login PIN -->
     <fragment
         android:id="@+id/pinLoginFragment"
         android:name="com.example.medicalapp.ui.pin.PinLoginFragment"
-        android:label="Login PIN">
+        tools:layout="@layout/fragment_pin_login">
+        <argument
+            android:name="userEmail"
+            app:argType="string" />
         <action
             android:id="@+id/action_pinLoginFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
     </fragment>
 
-    <!-- Dashboard Fragment -->
+    <!-- Dashboard -->
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.medicalapp.ui.dashboard.DashboardFragment"
-        android:label="Dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_medicalFormEditFragment"
+            app:destination="@id/medicalFormEditFragment" />
+    </fragment>
+
+    <!-- Formulaire édition (Mon carnet médical) -->
+    <fragment
+        android:id="@+id/medicalFormEditFragment"
+        android:name="com.example.medicalapp.ui.medical.MedicalFormEditFragment"
+        tools:layout="@layout/fragment_medical_form_edit"/>
 </navigation>

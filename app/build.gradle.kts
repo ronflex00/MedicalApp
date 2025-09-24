@@ -31,11 +31,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
 
-    // ✅ Active ViewBinding
     buildFeatures {
         viewBinding = true
     }
@@ -48,9 +48,13 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    // ✅ Navigation Component
+    // Navigation Component
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+
+    // ZXing pour QR Code
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation("com.google.zxing:core:3.4.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

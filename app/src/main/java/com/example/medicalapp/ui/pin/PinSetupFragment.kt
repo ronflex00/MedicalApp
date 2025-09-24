@@ -1,5 +1,6 @@
 package com.example.medicalapp.ui.pin
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +11,19 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.medicalapp.R
-import com.example.medicalapp.data.UserPreferences
 
 class PinSetupFragment : Fragment() {
 
-    private lateinit var userPrefs: UserPreferences
+    private lateinit var userEmail: String
+    private lateinit var inputPin: EditText
+    private lateinit var inputConfirmPin: EditText
+    private lateinit var btnSavePin: Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Récupération de l'email via Safe Args / Bundle
+        userEmail = requireArguments().getString("userEmail") ?: ""
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,19 +31,27 @@ class PinSetupFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_pin_setup, container, false)
 
-        userPrefs = UserPreferences(requireContext())
+        inputPin = view.findViewById(R.id.inputPin)
+        inputConfirmPin = view.findViewById(R.id.inputConfirmPin)
+        btnSavePin = view.findViewById(R.id.btnSavePin)
 
-        val pinInput = view.findViewById<EditText>(R.id.pinInput)
-        val saveBtn = view.findViewById<Button>(R.id.savePinBtn)
+        btnSavePin.setOnClickListener {
+            val pin = inputPin.text.toString()
+            val confirmPin = inputConfirmPin.text.toString()
 
-        saveBtn.setOnClickListener {
-            val pin = pinInput.text.toString()
-            if (pin.length == 4) {
-                userPrefs.savePin(pin)
-                Toast.makeText(requireContext(), "PIN sauvegardé !", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_pinSetupFragment_to_dashboardFragment)
-            } else {
-                Toast.makeText(requireContext(), "Le PIN doit contenir 4 chiffres", Toast.LENGTH_SHORT).show()
+            when {
+                pin.isEmpty() || confirmPin.isEmpty() ->
+                    Toast.makeText(requireContext(), "Veuillez entrer un code PIN", Toast.LENGTH_SHORT).show()
+                pin != confirmPin ->
+                    Toast.makeText(requireContext(), "Les codes PIN ne correspondent pas", Toast.LENGTH_SHORT).show()
+                else -> {
+                    // Sauvegarde du PIN dans SharedPreferences, clé unique par email
+                    val sharedPref = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                    sharedPref.edit().putString("pin_$userEmail", pin).apply()
+
+                    Toast.makeText(requireContext(), "PIN enregistré avec succès ✅", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_pinSetupFragment_to_dashboardFragment)
+                }
             }
         }
 

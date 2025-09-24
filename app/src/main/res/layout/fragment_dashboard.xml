@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/textDashboard"
-        android:text="Bienvenue dans votre carnet médical"
+        android:text="Bienvenue dans votre tableau de bord ! 🚀"
         android:textSize="18sp"
         android:layout_marginBottom="24dp"
         android:layout_width="wrap_content"
@@ -17,13 +17,6 @@
     <Button
         android:id="@+id/btnMedicalForm"
         android:text="Mon carnet médical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btnEmergency"
-        android:text="Contacts d'urgence"
-        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>
