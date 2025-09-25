@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import com.example.medicalapp.R
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
@@ -28,13 +28,11 @@ class SoignantLoginFragment : Fragment() {
         if (result.contents != null) {
             try {
                 val json = JSONObject(result.contents)
-                // Exemple : enregistrer dans un fichier local
                 File(requireContext().filesDir, fileName).writeText(json.toString())
                 Toast.makeText(requireContext(), "Données importées depuis QR ✅", Toast.LENGTH_SHORT).show()
 
-                // Ici tu peux naviguer vers un autre fragment si besoin
-                // val action = SoignantLoginFragmentDirections.actionSoignantLoginFragmentToNextFragment()
-                // findNavController().navigate(action)
+                // Naviguer vers le fragment d’édition du formulaire médical
+                findNavController().navigate(R.id.medicalFormEditFragment)
 
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Erreur import QR: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -57,7 +55,13 @@ class SoignantLoginFragment : Fragment() {
             val password = passwordEditText.text.toString()
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
-                simulateLogin(username, password)
+                // Login dur pour l’instant
+                if (username == "medecin" && password == "1234") {
+                    Toast.makeText(requireContext(), "Connexion réussie", Toast.LENGTH_SHORT).show()
+                    startQRScanner()
+                } else {
+                    Toast.makeText(requireContext(), "Identifiants invalides", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(requireContext(), "Veuillez remplir les champs", Toast.LENGTH_SHORT).show()
             }
@@ -66,21 +70,12 @@ class SoignantLoginFragment : Fragment() {
         return view
     }
 
-    private fun simulateLogin(username: String, password: String) {
-        // Simulation de login : user = "medecin" et password = "1234"
-        if (username == "medecin" && password == "1234") {
-            Toast.makeText(requireContext(), "Connexion réussie", Toast.LENGTH_SHORT).show()
-            startQRScanner()
-        } else {
-            Toast.makeText(requireContext(), "Identifiants invalides", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun startQRScanner() {
-        val options = ScanOptions()
-        options.setPrompt("Scanne le QR Code contenant le JSON")
-        options.setBeepEnabled(true)
-        options.setOrientationLocked(true)
+        val options = ScanOptions().apply {
+            setPrompt("Scanne le QR Code contenant le JSON")
+            setBeepEnabled(true)
+            setOrientationLocked(true)
+        }
         qrScanLauncher.launch(options)
     }
 }
