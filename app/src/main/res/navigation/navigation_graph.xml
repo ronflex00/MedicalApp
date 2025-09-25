@@ -16,6 +16,10 @@
         <action
             android:id="@+id/action_accueilFragment_to_pinLoginFragment"
             app:destination="@id/pinLoginFragment" />
+        <!-- Nouvelle action vers login soignant -->
+        <action
+            android:id="@+id/action_accueilFragment_to_soignantLoginFragment"
+            app:destination="@id/soignantLoginFragment" />
     </fragment>
 
     <!-- Formulaire inscription -->
@@ -68,5 +72,21 @@
     <fragment
         android:id="@+id/medicalFormEditFragment"
         android:name="com.example.medicalapp.ui.medical.MedicalFormEditFragment"
-        tools:layout="@layout/fragment_medical_form_edit"/>
+        tools:layout="@layout/fragment_medical_form_edit" />
+
+    <!-- Login soignant -->
+    <fragment
+        android:id="@+id/soignantLoginFragment"
+        android:name="com.example.medicalapp.ui.medical.SoignantLoginFragment"
+        tools:layout="@layout/fragment_soignant_login">
+        <action
+            android:id="@+id/action_soignantLoginFragment_to_soignantQrScanFragment"
+            app:destination="@id/soignantQrScanFragment" />
+    </fragment>
+
+    <!-- Scanner QR Code soignant -->
+    <fragment
+        android:id="@+id/soignantQrScanFragment"
+        android:name="com.example.medicalapp.ui.medical.SoignantQrScanFragment"
+        tools:layout="@layout/fragment_soignant_qr_scan"/>
 </navigation>
